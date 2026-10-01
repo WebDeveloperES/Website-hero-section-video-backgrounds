@@ -1,0 +1,699 @@
+
+/**
+ * Template Name: Custome | Background Video in hero section
+ * Description: 
+ * Version: 1.1.0
+ * Author: Emamul Sheikh
+ * Author https://webdeveloperes.github.io/Portfolio/
+ */
+
+
+/**
+ * Design System Tokens & Base Theme
+ */
+:root {
+  /* Color Palette */
+  --color-ink: #07110f;
+  --color-ink-2: #0d1916;
+  --color-paper: #f2f1eb;
+  --color-warm: #e8e4d9;
+  --color-muted: #6f756e;
+  --color-muted-light: #778078;
+  --color-accent: #b9c9a2;
+  --color-white: #ffffff;
+  
+  /* Borders & Transparencies */
+  --border-line-dark: rgba(7, 17, 15, 0.12);
+  --border-line-light: rgba(255, 255, 255, 0.2);
+
+  /* Typography */
+  --font-family-display: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* Transitions */
+  --transition-smooth: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: background-color 0.35s ease, backdrop-filter 0.35s ease, opacity 0.35s ease;
+}
+
+/* ==========================================================================
+   Base & Reset Settings
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-family-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+em {
+  font-family: var(--font-family-serif);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+/* ==========================================================================
+   Layout Shell & Utility Classes
+   ========================================================================== */
+
+.site-shell {
+  overflow: clip;
+}
+
+.section-pad {
+  padding-block: 8rem;
+}
+
+.section-kicker {
+  color: var(--color-muted-light);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.section-title {
+  font-family: var(--font-family-display);
+  font-size: clamp(2.7rem, 5.4vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+
+.lead-copy {
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.body-copy {
+  color: #626a63;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Base Link */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: opacity var(--transition-fast);
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  opacity: 0.7;
+}
+
+.text-link.dark {
+  color: var(--color-ink);
+}
+
+/* Scroll Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: var(--transition-smooth);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Site Header & Navigation
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  transition: var(--transition-fast);
+}
+
+.site-header.scrolled {
+  background-color: rgba(7, 17, 15, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.brand-logo {
+  display: block;
+  width: 138px;
+  height: auto;
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  transition: color var(--transition-fast);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible,
+.navbar .nav-link.active {
+  color: var(--color-white);
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.hero-media,
+.hero-video,
+.hero-fallback,
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-video {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.84;
+  transform: scale(1.01);
+}
+
+.hero-fallback {
+  z-index: -1;
+  background: linear-gradient(125deg, #07110f 5%, #1d3228 55%, #76816b 100%);
+}
+
+.hero-vignette {
+  background: 
+    linear-gradient(90deg, rgba(3, 10, 8, 0.78) 0%, rgba(3, 10, 8, 0.45) 48%, rgba(3, 10, 8, 0.18) 100%),
+    linear-gradient(0deg, rgba(3, 10, 8, 0.72) 0%, transparent 48%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.4rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.eyebrow span {
+  width: 34px;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.display-title {
+  max-width: 850px;
+  font-family: var(--font-family-display);
+  font-size: clamp(3.2rem, 7vw, 7.2rem);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+  margin: 0;
+}
+
+.hero-copy {
+  max-width: 600px;
+  margin-top: 1.8rem;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.hero-note {
+  max-width: 250px;
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.note-line {
+  width: 44px;
+  height: 1px;
+  background-color: var(--color-accent);
+  margin-bottom: 0.9rem;
+}
+
+.scroll-cue {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.scroll-cue span {
+  width: 1px;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   Content Sections
+   ========================================================================== */
+
+/* Intro */
+.intro-section {
+  background-color: var(--color-paper);
+}
+
+/* Science */
+.science-section {
+  background-color: var(--color-warm);
+}
+
+.science-card {
+  position: relative;
+  min-height: 560px;
+  color: var(--color-white);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.image-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.bg-lab {
+  background-image: url("https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1800&q=82");
+}
+
+.science-card:hover .image-card-bg {
+  transform: scale(1.04);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(4, 10, 8, 0.86), rgba(4, 10, 8, 0.08) 70%);
+}
+
+.card-content {
+  position: absolute;
+  inset: auto 2.5rem 2.5rem;
+  max-width: 600px;
+}
+
+.card-index {
+  color: var(--color-accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.card-content h3 {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  margin: 0.8rem 0 1rem;
+}
+
+.card-content p {
+  max-width: 500px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+}
+
+.science-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem;
+  background-color: var(--color-ink);
+  color: var(--color-white);
+}
+
+.side-number {
+  font-family: var(--font-family-display);
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.12);
+}
+
+.science-side h3 {
+  font-family: var(--font-family-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin: 1rem 0;
+}
+
+.science-side p {
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.8;
+}
+
+.mini-rule {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-line-light);
+  margin: 2rem 0 1.2rem;
+}
+
+.small-meta {
+  padding: 0.45rem 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.78rem;
+}
+
+.small-meta strong {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 500;
+}
+
+/* Ritual */
+.ritual-section {
+  background-color: #f6f5ef;
+}
+
+.ritual-image-wrap {
+  position: relative;
+  min-height: 590px;
+  overflow: hidden;
+}
+
+.ritual-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 590px;
+  object-fit: cover;
+  filter: saturate(0.82);
+}
+
+.ritual-caption {
+  position: absolute;
+  inset: auto 1.5rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-white);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Manifesto */
+.manifesto {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+}
+
+.manifesto-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 1rem;
+}
+
+.manifesto .section-kicker {
+  color: var(--color-accent);
+}
+
+.manifesto h2 {
+  font-family: var(--font-family-display);
+  font-size: clamp(3rem, 6vw, 6.8rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+  margin: 0;
+}
+
+.manifesto-item {
+  border-top: 1px solid var(--border-line-light);
+  padding-top: 1.25rem;
+}
+
+.manifesto-item span {
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+.manifesto-item h3 {
+  font-family: var(--font-family-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+}
+
+.manifesto-item p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+}
+
+/* Journal */
+.journal {
+  background-color: var(--color-paper);
+}
+
+.journal-card {
+  height: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--border-line-dark);
+}
+
+.journal-card img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  filter: saturate(0.82);
+}
+
+.journal-body {
+  padding: 1.6rem;
+}
+
+.journal-body > span {
+  color: #7b817b;
+  font-size: 0.67rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.journal-body h3 {
+  font-family: var(--font-family-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 0.8rem 0 1.5rem;
+}
+
+.journal-body a {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+  background-color: #050d0b;
+  color: var(--color-white);
+}
+
+.footer-logo {
+  width: 120px;
+}
+
+.footer-copy {
+  max-width: 400px;
+  margin-top: 1.1rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+}
+
+.footer-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--border-line-light);
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.72rem;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Tablet & Smaller Devices */
+@media (max-width: 991.98px) {
+  .site-header {
+    background-color: rgba(7, 17, 15, 0.68);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .navbar-collapse {
+    padding: 1rem 0 0.5rem;
+  }
+
+  .display-title {
+    max-width: 680px;
+  }
+
+  .hero-note {
+    margin-left: 0;
+  }
+
+  .science-card {
+    min-height: 480px;
+  }
+
+  .ritual-image-wrap,
+  .ritual-image {
+    min-height: 470px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 575.98px) {
+  .brand-logo {
+    width: 112px;
+  }
+
+  .section-pad {
+    padding-block: 5.5rem;
+  }
+
+  .hero-content .row {
+    min-height: 100svh;
+  }
+
+  .display-title {
+    font-size: clamp(2.9rem, 14vw, 4.5rem);
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+  }
+
+  .hero-note,
+  .scroll-cue {
+    display: none;
+  }
+
+  .card-content {
+    inset: auto 1.5rem 1.5rem;
+  }
+
+  .science-side {
+    padding: 2rem 1.5rem;
+  }
+
+  .science-card {
+    min-height: 430px;
+  }
+
+  .ritual-image-wrap,
+  .ritual-image {
+    min-height: 390px;
+  }
+
+  .journal-card img {
+    height: 240px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
